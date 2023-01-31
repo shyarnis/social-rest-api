@@ -1,0 +1,25 @@
+{
+  "name": "social-rest-api",
+  "version": "1.0.0",
+  "description": "social rest api",
+  "main": "index.js",
+  "repository": "https://github.com/shyarnis/social-rest-api.git",
+  "author": "shyarnis",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "mongoose": "^6.9.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
