@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
@@ -10,14 +11,17 @@ router.post("/register", async (req, res) => {
         throw new Error("Fill username, email, password");
     }
 
-    // create new user
-    const newUser = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-    });
-
     try {
+        // hash a req.body.password
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+        // create a new user
+        const newUser = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: hashPassword,
+        });
         const user = await newUser.save();
         res.status(200).json(user);
     } catch (error) {
