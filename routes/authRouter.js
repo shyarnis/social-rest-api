@@ -5,10 +5,12 @@ const User = require("../models/userModel");
 
 // register a user
 router.post("/register", async (req, res) => {
+    const { username, email, password } = req.body;
+
     // if not username, not email, not password
-    if (!req.body.username || !req.body.email || !req.body.email) {
-        res.status(400);
-        throw new Error("Fill username, email, password");
+    if (!username || !email || !password) {
+        res.status(400).json({ error: "please add all fields" });
+        // throw new Error("Please add all fields");
     }
 
     try {
