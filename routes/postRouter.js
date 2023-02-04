@@ -48,7 +48,24 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-// get a post
+// like/dislike a post
+router.put("/:id/like", async (req, res) => {
+    try {
+        // find post by id
+        const post = await Post.findById(req.params.id);
+        // does "post" has likes by current user
+        if (!post.likes.includes(req.body.userId)) {
+            // like
+            await post.updateOne({ $push: { likes: req.body.userId } });
+            res.status(200).json("Post has been liked");
+        } else {
+            //dislike
+            await post.updateOne({ $pull: { likes: req.body.userId } });
+            res.status(200).json("Post has been disliked");
+        }
+    } catch (error) {}
+});
+
 // get timeline post
 // like and dislike post
 
