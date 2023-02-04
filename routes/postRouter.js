@@ -19,7 +19,7 @@ router.put("/:id", async (req, res) => {
     try {
         // find post by id
         const post = await Post.findById(req.params.id);
-        if ((post.userId = req.body.userId)) {
+        if (post.userId === req.body.userId) {
             // update post
             await post.updateOne({ $set: req.body });
             res.status(200).json("Post have been updated");
@@ -36,7 +36,7 @@ router.delete("/:id", async (req, res) => {
     try {
         // find post by id
         const post = await Post.findById(req.params.id);
-        if ((post.userId = req.body.userId)) {
+        if (post.userId === req.body.userId) {
             // delete post
             await post.deleteOne();
             res.status(200).json("Post have been deleted");
