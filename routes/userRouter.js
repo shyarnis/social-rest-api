@@ -5,7 +5,7 @@ const User = require("../models/userModel");
 
 // UPDATE user with /:id
 router.put("/:id", async (req, res) => {
-    if (req.body.userId === req.params.id || req.user.isAdmin) {
+    if (req.body.userId === req.params.id || req.body.isAdmin) {
         // check for password
         if (req.body.password) {
             try {
@@ -31,6 +31,19 @@ router.put("/:id", async (req, res) => {
 });
 
 // delete user
+router.delete("/:id", async (req, res) => {
+    if (req.body.userId === req.params.id || req.body.isAdmin) {
+        // time to delete a user
+        try {
+            const user = await User.findByIdAndDelete({ _id: req.params.id });
+            res.status(200).json("Account has been deleted");
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    } else {
+        return res.status(403).json("you can only delete your account");
+    }
+});
 // get a user
 // follow a user
 // unfollow a user
