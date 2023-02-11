@@ -14,6 +14,13 @@ const registerUser = asyncHandler(async (req, res) => {
         // throw new Error("Please add all fields");
     }
 
+    // find user by username
+    const userExits = await User.findOne({ username });
+
+    if (userExits) {
+        res.status(400).json({ error: "User already exits" });
+    }
+
     try {
         // hash a req.body.password
         const salt = await bcrypt.genSalt(10);
