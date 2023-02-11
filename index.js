@@ -4,6 +4,7 @@ const morgan = require("morgan");
 require("dotenv").config();
 const PORT = process.env.PORT;
 
+const errorHandler = require("./middleware/errorMiddleware");
 const { connectDB } = require("./config/db");
 connectDB();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(morgan("common"));
+app.use(errorHandler);
 
 // router
 app.use("/api/users", require("./routes/userRouter"));
