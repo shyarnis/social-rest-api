@@ -1,10 +1,11 @@
+const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 
 //@desc     Register a User
 //@route    GET /api/auth/register
 //@access   Public
-const registerUser = async (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
 
     // if not username, not email, not password
@@ -29,12 +30,12 @@ const registerUser = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-};
+});
 
 //@desc     Login a User
 //@route    POST /api/auth/login
 //@access   Public
-const loginUser = async (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -51,7 +52,7 @@ const loginUser = async (req, res) => {
     } catch (error) {
         res.status(500).json(error);
     }
-};
+});
 
 module.exports = {
     registerUser,
